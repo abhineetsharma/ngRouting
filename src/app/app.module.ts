@@ -10,6 +10,8 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { ProductsComponent } from './products/products.component';
+import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,17 +19,18 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'contactus', redirectTo: 'contact' },
-  { path: 'login', component: LoginComponent }
-  // {
-  //   path: 'protected',
-  //   component: ProtectedComponent,
-  //   canActivate: { LoggedInGuard }
-  // },
-  // {
-  //   path: 'products',
-  //   component: ProductsComponent,
-  //   children: childRoutes
-  // }
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'protected',
+    component: ProtectedComponent
+    // canActivate: { LoggedInGuard }
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    // children: childRoutes
+  },
+  { path: 'product/:id', component: ProductComponent }
 ];
 
 @NgModule({
@@ -38,16 +41,22 @@ const routes: Routes = [
     ContactComponent,
     LoginComponent,
     ProtectedComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
-    //ProductModule
+    RouterModule.forRoot(routes),
+    // ProductModule
   ],
-  providers: [],
+  providers: [
+    // { provide: LocationStrategy, useClass: HashLocationStrategy }
+    // { provide: APP_BASE_HREF, useValue: '/' }
+    // AUTH_PROVIDERS,
+    // LoggedInGuard
+  ],
   bootstrap: [AppComponent]
 })
 
